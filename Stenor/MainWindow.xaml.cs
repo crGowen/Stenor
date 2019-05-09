@@ -27,13 +27,13 @@ namespace Stenor
         static extern int GetImgSize(string path);
 
         [DllImport("./func/StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int GetTxtSize(string path);
+        static extern int GetRequiredPixelsForEncode(string path);
 
         [DllImport("./func/StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int EncodeToContainer(string inputFile, string containerFile);
 
         [DllImport("./func/StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int ParseBinaryInput(string inputFile);
+        static extern int ParseImage(string inputFile);
 
         private string CleanFilePath(string unclean)
         {
@@ -86,7 +86,7 @@ namespace Stenor
             {
                 if (FTBDfield.Text.Substring(FTBDfield.Text.Length - 4) == ".png")
                 {
-                    ParseBinaryInput(CleanFilePath(FTBDfield.Text));
+                    ParseImage(CleanFilePath(FTBDfield.Text));
                     decMsg.Foreground = Brushes.Green;
                     decMsg.Text = "DECODING COMPLETE.";
                 }
@@ -139,46 +139,11 @@ namespace Stenor
 
         private void FTBEBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (FTBEfield.Text.Length > 4)
-            {
-                if (FTBEfield.Text.Substring(FTBEfield.Text.Length - 4) == ".png")
-                {
-                    FTBEfield.Foreground = Brushes.Black;
-                    warning_text.Foreground = Brushes.Black;
-                    warning_text.Text = "";
-                    img1size = GetImgSize(CleanFilePath(FTBEfield.Text)) * 24 + 6 + 32;
-                    img1size = img1size / 6;
-                    warning_text.Text = "Encoding this image will require a container image of at least " + img1size + " pixels.";
-
-                }
-                else if (FTBEfield.Text.Substring(FTBEfield.Text.Length - 4) == ".wav")
-                {
-                    FTBEfield.Foreground = Brushes.Red;
-                    warning_text.Foreground = Brushes.Red;
-                    img1size = 0;
-                    warning_text.Text = "AUDIO ENCODING COMING SOON!";
-                }
-                else if (FTBEfield.Text.Substring(FTBEfield.Text.Length - 4) == ".txt")
-                {
-                    FTBEfield.Foreground = Brushes.Black;
-                    warning_text.Foreground = Brushes.Black;
-                    img1size = GetTxtSize(CleanFilePath(FTBEfield.Text));
-                    warning_text.Text = "Encoding this text file will require a container image of at least " + img1size + " pixels.";
-                }
-                else
-                {
-                    FTBEfield.Foreground = Brushes.Red;
-                    warning_text.Foreground = Brushes.Red;
-                    warning_text.Text = "You need to select a suitable file!";
-                }
-            }
-            else if (FTBEfield.Text.Length > 0)
-            {
-                FTBEfield.Foreground = Brushes.Red;
-                warning_text.Foreground = Brushes.Red;
-                warning_text.Text = "You need to select a suitable file!";
-            }
-            else warning_text.Text = "";
+            FTBEfield.Foreground = Brushes.Black;
+            warning_text.Foreground = Brushes.Black;
+            warning_text.Text = "";
+            img1size = GetRequiredPixelsForEncode(CleanFilePath(FTBEfield.Text)) * 24 + 6 + 32;
+            warning_text.Text = "Encoding this image will require a container image of at least " + img1size + " pixels.";
             encMsg.Text = "";
         }
 
