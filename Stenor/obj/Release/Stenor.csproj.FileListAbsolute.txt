@@ -1,0 +1,14 @@
+C:\Users\Carl\source\repos\Stenor\Stenor\bin\Release\Stenor.exe.config
+C:\Users\Carl\source\repos\Stenor\Stenor\bin\Release\Stenor.exe
+C:\Users\Carl\source\repos\Stenor\Stenor\bin\Release\Stenor.pdb
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\MainWindow.g.cs
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\App.g.cs
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor_MarkupCompile.cache
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor_MarkupCompile.lref
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\MainWindow.baml
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor.g.resources
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor.Properties.Resources.resources
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor.csproj.GenerateResource.cache
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor.csproj.CoreCompileInputs.cache
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor.exe
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor.pdb

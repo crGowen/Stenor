@@ -1,0 +1,15 @@
+C:\Users\Carl\source\repos\Stenor\Stenor\bin\Debug\Stenor.exe.config
+C:\Users\Carl\source\repos\Stenor\Stenor\bin\Debug\Stenor.exe
+C:\Users\Carl\source\repos\Stenor\Stenor\bin\Debug\Stenor.pdb
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Debug\MainWindow.g.cs
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Debug\App.g.cs
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Debug\Stenor_MarkupCompile.cache
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Debug\Stenor_MarkupCompile.lref
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Debug\MainWindow.baml
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Debug\Stenor.g.resources
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Debug\Stenor.Properties.Resources.resources
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Debug\Stenor.csproj.GenerateResource.cache
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Debug\Stenor.csproj.CoreCompileInputs.cache
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Debug\Stenor.exe
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Debug\Stenor.pdb
+C:\Users\Carl\source\repos\Stenor\Stenor\obj\Debug\Stenor.csprojAssemblyReference.cache
