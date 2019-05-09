@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -55,6 +56,19 @@ namespace Stenor
             ofd = new Microsoft.Win32.OpenFileDialog();
         }
 
+        private string GetFileType(string inputFile)
+        {
+            string type = "";
+            bool finished = false;
+            for (int i = inputFile.Length - 1; i >= 0 && !finished; i--)
+            {
+                if (inputFile[i] == '.') finished = true;
+                else type = inputFile[i] + type;
+            }
+            if (!finished) return ".";
+            else return type;
+        }
+
         private void FTBE_Click(object sender, RoutedEventArgs e)
         {
             if (ofd.ShowDialog() == true) FTBEfield.Text = ofd.FileName;
@@ -62,11 +76,19 @@ namespace Stenor
 
         private void EncodeBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (img2size >= img1size && img1size > 0)
+            if (img2size >= img1size)
             {
-                EncodeToContainer(CleanFilePath(FTBEfield.Text), CleanFilePath(CIfield.Text));
-                encMsg.Foreground = Brushes.Green;
-                encMsg.Text = "ENCODING COMPLETE.";
+                if (img1size > 0)
+                {
+                    EncodeToContainer(CleanFilePath(FTBEfield.Text), CleanFilePath(CIfield.Text));
+                    encMsg.Foreground = Brushes.Green;
+                    encMsg.Text = "ENCODING COMPLETE.";
+                }
+                else
+                {
+                    encMsg.Foreground = Brushes.Red;
+                    encMsg.Text = "Specified file is not valid or does not exist.";
+                }                
             }
             else
             {
@@ -86,9 +108,18 @@ namespace Stenor
             {
                 if (FTBDfield.Text.Substring(FTBDfield.Text.Length - 4) == ".png")
                 {
-                    ParseImage(CleanFilePath(FTBDfield.Text));
-                    decMsg.Foreground = Brushes.Green;
-                    decMsg.Text = "DECODING COMPLETE.";
+                    if (File.Exists(CleanFilePath(FTBDfield.Text)))
+                    {
+                        ParseImage(CleanFilePath(FTBDfield.Text));
+                        decMsg.Foreground = Brushes.Green;
+                        decMsg.Text = "DECODING COMPLETE.";
+                    }
+                    else
+                    {
+                        decMsg.Foreground = Brushes.Red;
+                        decMsg.Text = "Specified file does not exist.";
+                    }
+                        
                 }
                 else
                 {
@@ -142,8 +173,29 @@ namespace Stenor
             FTBEfield.Foreground = Brushes.Black;
             warning_text.Foreground = Brushes.Black;
             warning_text.Text = "";
-            img1size = GetRequiredPixelsForEncode(CleanFilePath(FTBEfield.Text)) * 24 + 6 + 32;
-            warning_text.Text = "Encoding this image will require a container image of at least " + img1size + " pixels.";
+            if (GetFileType(CleanFilePath(FTBEfield.Text))!="." && GetFileType(CleanFilePath(FTBEfield.Text))!="")
+            {
+                if(File.Exists(CleanFilePath(FTBEfield.Text)))
+                {
+                    img1size = GetRequiredPixelsForEncode(CleanFilePath(FTBEfield.Text)) * 24 + 6 + 32;
+                    warning_text.Text = "Encoding this file will require a container image of at least " + img1size + " pixels.";
+                }
+                else
+                {
+                    img1size = 0;
+                    FTBEfield.Foreground = Brushes.Red;
+                    warning_text.Foreground = Brushes.Red;
+                    warning_text.Text = "The specified file does not exist.";
+                }
+                
+            }
+            else
+            {
+                img1size = 0;
+                FTBEfield.Foreground = Brushes.Red;
+                warning_text.Foreground = Brushes.Red;
+                warning_text.Text = "Select a valid file.";
+            }
             encMsg.Text = "";
         }
 
@@ -153,21 +205,31 @@ namespace Stenor
             {
                 if (FTBDfield.Text.Substring(FTBDfield.Text.Length - 4) == ".png")
                 {
-                    FTBDfield.Foreground = Brushes.Black;
-                    warning_text3.Foreground = Brushes.Black;
+                    if (!File.Exists(CleanFilePath(FTBDfield.Text)))
+                    {
+                        FTBDfield.Foreground = Brushes.Red;
+                        warning_text3.Foreground = Brushes.Red;
+                        warning_text3.Text = "The specified file does not exist.";
+                    }
+                    else
+                    {
+                        FTBDfield.Foreground = Brushes.Black;
+                        warning_text3.Foreground = Brushes.Black;
+                        warning_text3.Text = "";
+                    }
                 }
                 else
                 {
                     FTBDfield.Foreground = Brushes.Red;
                     warning_text3.Foreground = Brushes.Red;
-                    warning_text3.Text = "You need to select a .PNG file!";
+                    warning_text3.Text = "You need to select a .PNG file.";
                 }
             }
             else if (FTBDfield.Text.Length > 0)
             {
                 FTBDfield.Foreground = Brushes.Red;
                 warning_text3.Foreground = Brushes.Red;
-                warning_text3.Text = "You need to select a .PNG file!";
+                warning_text3.Text = "You need to select a .PNG file.";
             }
             else warning_text3.Text = "";
             decMsg.Text = "";
