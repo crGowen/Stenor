@@ -53,6 +53,54 @@ namespace Stenor
         int img1size = 0;
         int img2size = 0;
 
+        //Interop boundary issues are a maybe? so instead of std exceptions, let's just use ints
+        private void ShowErr(int eCode)
+        {
+            switch (eCode)
+            {
+                case 5:
+                    MessageBox.Show("Input file has no file extension, or the file extension is more than ten letters long.");
+                    break;
+                case 10:
+                    MessageBox.Show("Invalid file type for container.");
+                    break;
+                case 20:
+                    MessageBox.Show("Error occured whilst outputting data to image file. Likely issue is that the image is not a 24bit RGB .png file.");
+                    break;
+                case 30:
+                    MessageBox.Show("Error occured whilst outputting data to wav file. Likely issue is that the wav file is not formatted as 16bit PCM with no FACT chunk.");
+                    break;
+                case 40:
+                    MessageBox.Show("Error occured whilst converting input file to binary string.");
+                    break;
+                case 50:
+                    MessageBox.Show("File chosen for decoding is neither a .wav nor a .png file.");
+                    break;
+                case 60:
+                    MessageBox.Show("Error occured whilst extracting binary encoding from image.");
+                    break;
+                case 70:
+                    MessageBox.Show("Error occured whilst extracting binary encoding from audio file.");
+                    break;
+                case 80:
+                    MessageBox.Show("Error occured whilst coverting binary string to decoded file.");
+                    break;
+                case 90:
+                    MessageBox.Show("Error occured getting image size. Ensure the container image is a 24bit RGB .png file.");
+                    break;
+                case 100:
+                    MessageBox.Show("Error occured getting audio file size. Ensure the container wav file is formatted as 16bit PCM with no FACT chunk.");
+                    break;
+                case 110:
+                    MessageBox.Show("Error occuring checking input file storage size requirement. Likely a formatting error with the specified file.");
+                    break;
+                default:
+                    MessageBox.Show("An undefined error occured.");
+                    break;
+            }
+
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -83,9 +131,19 @@ namespace Stenor
             {
                 if (img1size > 0)
                 {
-                    EncodeToContainer(CleanFilePath(FTBEfield.Text), CleanFilePath(CIfield.Text));
-                    encMsg.Foreground = Brushes.Green;
-                    encMsg.Text = "ENCODING COMPLETE.";
+                    int result = EncodeToContainer(CleanFilePath(FTBEfield.Text), CleanFilePath(CIfield.Text));
+                    if (result==0)
+                    {
+                        encMsg.Foreground = Brushes.Green;
+                        encMsg.Text = "ENCODING COMPLETE.";
+                    }
+                    else
+                    {
+                        encMsg.Foreground = Brushes.Red;
+                        encMsg.Text = "ENCODING FAILED.";
+                        ShowErr(result);
+                    }
+                    
                 }
                 else
                 {
@@ -113,9 +171,19 @@ namespace Stenor
                 {
                     if (File.Exists(CleanFilePath(FTBDfield.Text)))
                     {
-                        ParseContainer(CleanFilePath(FTBDfield.Text));
-                        decMsg.Foreground = Brushes.Green;
-                        decMsg.Text = "DECODING COMPLETE.";
+                       int result = ParseContainer(CleanFilePath(FTBDfield.Text));
+                        if (result == 0)
+                        {
+                            decMsg.Foreground = Brushes.Green;
+                            decMsg.Text = "DECODING COMPLETE.";
+                        }
+                        else
+                        {
+                            decMsg.Foreground = Brushes.Red;
+                            decMsg.Text = "DECODING FAILED.";
+                            ShowErr(result);
+                        }
+                        
                     }
                     else
                     {
@@ -166,6 +234,7 @@ namespace Stenor
                     CIfield.Foreground = Brushes.Black;
                     warning_text2.Foreground = Brushes.Black;
                     img2size = GetImgSize(CleanFilePath(CIfield.Text));
+                    if (img2size == 0) ShowErr(90);
                     warning_text2.Text = "This image can be used to store " + img2size + " bytes.";
                 }
                 else if (CIfield.Text.Substring(CIfield.Text.Length - 4) == ".wav")
@@ -173,6 +242,7 @@ namespace Stenor
                     CIfield.Foreground = Brushes.Black;
                     warning_text2.Foreground = Brushes.Black;
                     img2size = GetWavSize(CleanFilePath(CIfield.Text));
+                    if (img2size == 0) ShowErr(100);
                     warning_text2.Text = "This audio file can be used to store " + img2size + " bytes.";
                 }
                 else
@@ -202,6 +272,7 @@ namespace Stenor
                 if(File.Exists(CleanFilePath(FTBEfield.Text)))
                 {
                     img1size = GetRequiredBytesForEncode(CleanFilePath(FTBEfield.Text));
+                    if (img1size == 0) ShowErr(110);
                     warning_text.Text = "Encoding this file will require a container that can store " + img1size + " bytes.";
                 }
                 else
