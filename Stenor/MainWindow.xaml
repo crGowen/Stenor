@@ -11,17 +11,17 @@
             <TabItem Header="Encode" Margin="-2,-2,-17.6,0.2">
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,-1">
                     <Label Content="Container image:" HorizontalAlignment="Left" Height="27" Margin="10,94,0,0" VerticalAlignment="Top" Width="111"/>
-                    <Label Content="File to be encoded:" HorizontalAlignment="Left" Height="35" Margin="10,25,0,0" VerticalAlignment="Top" Width="124"/>
-                    <TextBox x:Name="FTBEfield" HorizontalAlignment="Left" Height="25" Margin="126,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="467" TextChanged="FTBEBox_TextChanged"/>
+                    <Label Content="Input file:" HorizontalAlignment="Left" Height="35" Margin="47,7,0,0" VerticalAlignment="Top" Width="74"/>
+                    <TextBox x:Name="FTBEfield" HorizontalAlignment="Left" Height="25" Margin="126,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="467" TextChanged="FTBEBox_TextChanged"/>
                     <TextBox x:Name="CIfield" HorizontalAlignment="Left" Height="25" Margin="126,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="467" TextChanged="CIBox_TextChanged"/>
-                    <Button x:Name="ftbeBtn" Content="Search for file" HorizontalAlignment="Left" Height="25" Margin="606,26,0,0" VerticalAlignment="Top" Width="117" Click="FTBE_Click"/>
+                    <Button x:Name="ftbeBtn" Content="Search for file" HorizontalAlignment="Left" Height="25" Margin="606,8,0,0" VerticalAlignment="Top" Width="117" Click="FTBE_Click"/>
                     <Button x:Name="ctBtn" Content="Search for file" HorizontalAlignment="Left" Height="25" Margin="606,96,0,0" VerticalAlignment="Top" Width="117" Click="CI_Click"/>
-                    <TextBlock HorizontalAlignment="Left" Height="51" Margin="143,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="466"><Run Text="Result will be outputted as "/><Run Text="'stenor_encode.png"/><Run Text="/wav"/><Run Text="' in the same "/><Run Text="location"/><Run Text=" as the Stenor.exe file"/><Run Text="."/><Run Text=" Note that for large files this may take a while"/><Run Text=" and"/><Run Text=" cause the program to become "/><Run Text="temporarily unresponsive while the file is being "/><Run Text="en"/><Run Text="coded"/><Run Text="."/></TextBlock>
-                    <Button x:Name="encodeBtn" Content="Encode" HorizontalAlignment="Left" Height="46" Margin="142,211,0,0" VerticalAlignment="Top" Width="466" Click="EncodeBtn_Click"/>
-                    <TextBlock x:Name="warning_text" HorizontalAlignment="Left" Height="27" Margin="143,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="466"/>
-                    <TextBlock x:Name="warning_text2" HorizontalAlignment="Left" Height="20" Margin="143,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="466"/>
+                    <TextBlock HorizontalAlignment="Left" Height="51" Margin="126,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483"><Run Text="Result will be outputted as "/><Run Text="'stenor_encode.png"/><Run Text="/wav"/><Run Text="' in the same "/><Run Text="location"/><Run Text=" as the Stenor.exe file"/><Run Text="."/><Run Text=" Note that for large files this may take a while"/><Run Text=" and"/><Run Text=" cause the program to become "/><Run Text="temporarily unresponsive while the file is being "/><Run Text="en"/><Run Text="coded"/><Run Text="."/></TextBlock>
+                    <Button x:Name="encodeBtn" Content="Encode" HorizontalAlignment="Left" Height="46" Margin="126,211,0,0" VerticalAlignment="Top" Width="482" Click="EncodeBtn_Click"/>
+                    <TextBlock x:Name="warning_text" HorizontalAlignment="Left" Height="17" Margin="126,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483"/>
+                    <TextBlock x:Name="warning_text2" HorizontalAlignment="Left" Height="20" Margin="126,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483"/>
                     <TextBlock x:Name="encMsg" HorizontalAlignment="Left" Margin="143,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="465" Foreground="Red"/>
-                    <Label Content=".PNG files should be 24bit RGB, .WAV files should be 16bit PCM" HorizontalAlignment="Left" Height="25" Margin="126,0,0,0" VerticalAlignment="Top" Width="467"/>
+                    <Label Content=".PNG files should be 24bit RGB, .WAV files should be 16bit PCM" HorizontalAlignment="Left" Height="25" Margin="126,71,0,0" VerticalAlignment="Top" Width="482"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Decode" Margin="0,-2,-19.2,0" HorizontalAlignment="Right" Width="71">
@@ -29,9 +29,9 @@
                     <Label Content="File to be decoded:" HorizontalAlignment="Left" Height="32" Margin="10,27,0,0" VerticalAlignment="Top" Width="122"/>
                     <TextBox x:Name="FTBDfield" HorizontalAlignment="Left" Height="26" Margin="132,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="461" TextChanged="FTBDBox_TextChanged"/>
                     <Button x:Name="ftbdBtn" Content="Search for file" HorizontalAlignment="Left" Height="27" Margin="609,25,0,0" VerticalAlignment="Top" Width="112" Click="FTBD_Click"/>
-                    <TextBlock HorizontalAlignment="Left" Height="47" Margin="146,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="461"><Run Text="Result will be outputted as "/><Run Text="'stenor_"/><Run Text="de"/><Run Text="code."/><Run Text="&lt;filetype&gt;"/><Run Text="' in the same "/><Run Text="location"/><Run Text=" as the Stenor.exe file"/><Run Text="."/><Run Text=" Note that for large files this may take a while"/><Run Text=" and"/><Run Text=" cause the program to become "/><Run Text="temporarily unresponsive while the file is being decoded"/><Run Text="."/><LineBreak/><Run Text=""/></TextBlock>
-                    <Button x:Name="decodeBtn" Content="Decode" HorizontalAlignment="Left" Height="47" Margin="146,211,0,0" VerticalAlignment="Top" Width="461" Click="DecodeBtn_Click"/>
-                    <TextBlock x:Name="warning_text3" HorizontalAlignment="Left" Height="30" Margin="146,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="458"/>
+                    <TextBlock HorizontalAlignment="Left" Height="47" Margin="132,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="475"><Run Text="Result will be outputted as "/><Run Text="'stenor_"/><Run Text="de"/><Run Text="code."/><Run Text="&lt;filetype&gt;"/><Run Text="' in the same "/><Run Text="location"/><Run Text=" as the Stenor.exe file"/><Run Text="."/><Run Text=" Note that for large files this may take a while"/><Run Text=" and"/><Run Text=" cause the program to become "/><Run Text="temporarily unresponsive while the file is being decoded"/><Run Text="."/><LineBreak/><Run Text=""/></TextBlock>
+                    <Button x:Name="decodeBtn" Content="Decode" HorizontalAlignment="Left" Height="47" Margin="132,211,0,0" VerticalAlignment="Top" Width="475" Click="DecodeBtn_Click"/>
+                    <TextBlock x:Name="warning_text3" HorizontalAlignment="Left" Height="30" Margin="137,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="467"/>
                     <TextBlock x:Name="decMsg" HorizontalAlignment="Left" Margin="146,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="461" Foreground="Red" Height="21"/>
                 </Grid>
             </TabItem>
