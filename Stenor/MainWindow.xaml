@@ -10,8 +10,8 @@
         <TabControl HorizontalAlignment="Left" Height="325" VerticalAlignment="Top" Width="746" Margin="0,0,0,-37.6">
             <TabItem Header="Encode" Margin="-2,-2,-17.6,0.2">
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,-1">
-                    <Label Content="Container image:" HorizontalAlignment="Left" Height="27" Margin="10,94,0,0" VerticalAlignment="Top" Width="111"/>
-                    <Label Content="Input file:" HorizontalAlignment="Left" Height="35" Margin="47,7,0,0" VerticalAlignment="Top" Width="74"/>
+                    <Label Content="Container file:" HorizontalAlignment="Left" Height="27" Margin="28,94,0,0" VerticalAlignment="Top" Width="93"/>
+                    <Label Content="Input file:" HorizontalAlignment="Left" Height="35" Margin="47,8,0,0" VerticalAlignment="Top" Width="79"/>
                     <TextBox x:Name="FTBEfield" HorizontalAlignment="Left" Height="25" Margin="126,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="467" TextChanged="FTBEBox_TextChanged"/>
                     <TextBox x:Name="CIfield" HorizontalAlignment="Left" Height="25" Margin="126,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="467" TextChanged="CIBox_TextChanged"/>
                     <Button x:Name="ftbeBtn" Content="Search for file" HorizontalAlignment="Left" Height="25" Margin="606,8,0,0" VerticalAlignment="Top" Width="117" Click="FTBE_Click"/>
