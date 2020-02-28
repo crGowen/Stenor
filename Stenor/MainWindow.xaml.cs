@@ -24,19 +24,19 @@ namespace Stenor
     {
         Microsoft.Win32.OpenFileDialog ofd;
 
-        [DllImport("./func/StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("./StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int GetImgSize(string path);
 
-        [DllImport("./func/StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("./StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int GetWavSize(string path);
 
-        [DllImport("./func/StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("./StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int GetRequiredBytesForEncode(string path);
 
-        [DllImport("./func/StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("./StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int EncodeToContainer(string inputFile, string containerFile);
 
-        [DllImport("./func/StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("./StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int ParseContainer(string inputFile);
 
         private string CleanFilePath(string unclean)
