@@ -229,7 +229,7 @@ namespace Stenor
         {
             if (CIfield.Text.Length > 4)
             {
-                if (CIfield.Text.Substring(CIfield.Text.Length - 4) == ".png")
+                if (CIfield.Text.Substring(CIfield.Text.Length - 4).ToLower() == ".png")
                 {
                     CIfield.Foreground = Brushes.Black;
                     warning_text2.Foreground = Brushes.Black;
@@ -237,7 +237,7 @@ namespace Stenor
                     if (img2size == 0) ShowErr(90);
                     warning_text2.Text = "This image can be used to store " + img2size + " bytes.";
                 }
-                else if (CIfield.Text.Substring(CIfield.Text.Length - 4) == ".wav")
+                else if (CIfield.Text.Substring(CIfield.Text.Length - 4).ToLower() == ".wav")
                 {
                     CIfield.Foreground = Brushes.Black;
                     warning_text2.Foreground = Brushes.Black;

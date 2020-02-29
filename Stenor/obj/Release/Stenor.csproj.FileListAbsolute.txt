@@ -12,4 +12,3 @@ C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor.csproj.GenerateResou
 C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor.csproj.CoreCompileInputs.cache
 C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor.exe
 C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor.pdb
-C:\Users\Carl\source\repos\Stenor\Stenor\obj\Release\Stenor.csprojAssemblyReference.cache
