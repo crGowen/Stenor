@@ -16,12 +16,11 @@
                     <TextBox x:Name="CIfield" HorizontalAlignment="Left" Height="25" Margin="126,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="467" TextChanged="CIBox_TextChanged"/>
                     <Button x:Name="ftbeBtn" Content="Search for file" HorizontalAlignment="Left" Height="25" Margin="606,8,0,0" VerticalAlignment="Top" Width="117" Click="FTBE_Click"/>
                     <Button x:Name="ctBtn" Content="Search for file" HorizontalAlignment="Left" Height="25" Margin="606,96,0,0" VerticalAlignment="Top" Width="117" Click="CI_Click"/>
-                    <TextBlock HorizontalAlignment="Left" Height="51" Margin="126,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483"><Run Text="Result will be outputted as "/><Run Text="'stenor_encode.png"/><Run Text="/wav"/><Run Text="' in the same "/><Run Text="location"/><Run Text=" as the Stenor.exe file"/><Run Text="."/><Run Text=" Note that for large files this may take a while"/><Run Text=" and"/><Run Text=" cause the program to become "/><Run Text="temporarily unresponsive while the file is being "/><Run Text="en"/><Run Text="coded"/><Run Text="."/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Height="51" Margin="126,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483"><Run Text="Result will be outputted as "/><Run Text="'stenor_encode.png' in the same "/><Run Text="location"/><Run Text=" as the Stenor.exe file"/><Run Text="."/><Run Text=" Note that for large files this may take a while"/><Run Text=" and"/><Run Text=" cause the program to become "/><Run Text="temporarily unresponsive while the file is being "/><Run Text="en"/><Run Text="coded"/><Run Text="."/></TextBlock>
                     <Button x:Name="encodeBtn" Content="Encode" HorizontalAlignment="Left" Height="46" Margin="126,211,0,0" VerticalAlignment="Top" Width="482" Click="EncodeBtn_Click"/>
                     <TextBlock x:Name="warning_text" HorizontalAlignment="Left" Height="17" Margin="126,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483"/>
                     <TextBlock x:Name="warning_text2" HorizontalAlignment="Left" Height="20" Margin="126,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="483"/>
                     <TextBlock x:Name="encMsg" HorizontalAlignment="Left" Margin="143,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="465" Foreground="Red"/>
-                    <Label Content=".PNG files should be 24bit RGB, .WAV files should be 16bit PCM" HorizontalAlignment="Left" Height="25" Margin="126,71,0,0" VerticalAlignment="Top" Width="482"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Decode" Margin="0,-2,-19.2,0" HorizontalAlignment="Right" Width="71">

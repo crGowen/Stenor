@@ -24,20 +24,17 @@ namespace Stenor
     {
         Microsoft.Win32.OpenFileDialog ofd;
 
-        [DllImport("./StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int GetImgSize(string path);
+        [DllImport("./stenorbe.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern int GetImgBytesStorable(string path);
 
-        [DllImport("./StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int GetWavSize(string path);
-
-        [DllImport("./StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("./stenorbe.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int GetRequiredBytesForEncode(string path);
 
-        [DllImport("./StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int EncodeToContainer(string inputFile, string containerFile);
+        [DllImport("./stenorbe.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern int OutputFileToImg(string inputFile, string containerFile);
 
-        [DllImport("./StenorBackend.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int ParseContainer(string inputFile);
+        [DllImport("./stenorbe.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern int DecodeFromImg(string inputFile);
 
         private string CleanFilePath(string unclean)
         {
@@ -50,8 +47,8 @@ namespace Stenor
             return buildStr;
         }
 
-        int img1size = 0;
-        int img2size = 0;
+        int fileSize = 0;
+        int containerStorableSize = 0;
 
         //Interop boundary issues are a maybe? so instead of std exceptions, let's just use ints
         private void ShowErr(int eCode)
@@ -77,7 +74,7 @@ namespace Stenor
                     MessageBox.Show("File chosen for decoding is neither a .wav nor a .png file.");
                     break;
                 case 60:
-                    MessageBox.Show("Error occured whilst extracting binary encoding from image.");
+                    MessageBox.Show("Error occured whilst extracting binary encoding from image. Image probably doesn't contain any stenor-encoded information.");
                     break;
                 case 70:
                     MessageBox.Show("Error occured whilst extracting binary encoding from audio file.");
@@ -127,11 +124,11 @@ namespace Stenor
 
         private void EncodeBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (img2size >= img1size)
+            if (containerStorableSize >= fileSize)
             {
-                if (img1size > 0)
+                if (fileSize > 0)
                 {
-                    int result = EncodeToContainer(CleanFilePath(FTBEfield.Text), CleanFilePath(CIfield.Text));
+                    int result = OutputFileToImg(CleanFilePath(FTBEfield.Text), CleanFilePath(CIfield.Text));
                     if (result==0)
                     {
                         encMsg.Foreground = Brushes.Green;
@@ -167,11 +164,11 @@ namespace Stenor
         { 
             if(FTBDfield.Text.Length > 4)
             {
-                if (FTBDfield.Text.Substring(FTBDfield.Text.Length - 4) == ".png")
+                if (FTBDfield.Text.Substring(FTBDfield.Text.Length - 4) == ".png" || FTBDfield.Text.Substring(FTBDfield.Text.Length - 4) == ".jpg")
                 {
                     if (File.Exists(CleanFilePath(FTBDfield.Text)))
                     {
-                       int result = ParseContainer(CleanFilePath(FTBDfield.Text));
+                       int result = DecodeFromImg(CleanFilePath(FTBDfield.Text));
                         if (result == 0)
                         {
                             decMsg.Foreground = Brushes.Green;
@@ -192,30 +189,16 @@ namespace Stenor
                     }
                         
                 }
-                else if (FTBDfield.Text.Substring(FTBDfield.Text.Length - 4) == ".wav")
-                {
-                    if (File.Exists(CleanFilePath(FTBDfield.Text)))
-                    {
-                        ParseContainer(CleanFilePath(FTBDfield.Text));
-                        decMsg.Foreground = Brushes.Green;
-                        decMsg.Text = "DECODING COMPLETE.";
-                    }
-                    else
-                    {
-                        decMsg.Foreground = Brushes.Red;
-                        decMsg.Text = "Specified file does not exist.";
-                    }
-                }
                 else
                 {
                     decMsg.Foreground = Brushes.Red;
-                    decMsg.Text = "Select a .PNG or .WAV file to decode.";
+                    decMsg.Text = "Select a .PNG or .JPG file to decode.";
                 }
             }
             else
             {
                 decMsg.Foreground = Brushes.Red;
-                decMsg.Text = "Select a .PNG or .WAV file to decode.";
+                decMsg.Text = "Select a .PNG or .JPG file to decode.";
             }
             
         }
@@ -229,36 +212,34 @@ namespace Stenor
         {
             if (CIfield.Text.Length > 4)
             {
-                if (CIfield.Text.Substring(CIfield.Text.Length - 4).ToLower() == ".png")
+                if (CIfield.Text.Substring(CIfield.Text.Length - 4).ToLower() == ".png" || CIfield.Text.Substring(CIfield.Text.Length - 4).ToLower() == ".jpg")
                 {
                     CIfield.Foreground = Brushes.Black;
                     warning_text2.Foreground = Brushes.Black;
-                    img2size = GetImgSize(CleanFilePath(CIfield.Text));
-                    if (img2size == 0) ShowErr(90);
-                    warning_text2.Text = "This image can be used to store " + img2size + " bytes.";
-                }
-                else if (CIfield.Text.Substring(CIfield.Text.Length - 4).ToLower() == ".wav")
-                {
-                    CIfield.Foreground = Brushes.Black;
-                    warning_text2.Foreground = Brushes.Black;
-                    img2size = GetWavSize(CleanFilePath(CIfield.Text));
-                    if (img2size == 0) ShowErr(100);
-                    warning_text2.Text = "This audio file can be used to store " + img2size + " bytes.";
+                    containerStorableSize = GetImgBytesStorable(CleanFilePath(CIfield.Text));
+                    if (containerStorableSize == 0) ShowErr(90);
+                    warning_text2.Text = "This image can be used to store " + containerStorableSize + " bytes.";
                 }
                 else
                 {
                     CIfield.Foreground = Brushes.Red;
                     warning_text2.Foreground = Brushes.Red;
-                    warning_text2.Text = "You need to select a .PNG or .WAV file!";
+                    warning_text2.Text = "You need to select a .PNG or .JPG file!";
+                    containerStorableSize = 0;
                 }
             }
             else if (CIfield.Text.Length > 0)
             {
                 CIfield.Foreground = Brushes.Red;
                 warning_text2.Foreground = Brushes.Red;
-                warning_text2.Text = "You need to select a .PNG file!";
+                warning_text2.Text = "You need to select a .PNG or .JPG file!";
+                containerStorableSize = 0;
             }
-            else warning_text2.Text = "";
+            else
+            {
+                warning_text2.Text = "";
+                containerStorableSize = 0;
+            }
 
         }
 
@@ -271,13 +252,13 @@ namespace Stenor
             {
                 if(File.Exists(CleanFilePath(FTBEfield.Text)))
                 {
-                    img1size = GetRequiredBytesForEncode(CleanFilePath(FTBEfield.Text));
-                    if (img1size == 0) ShowErr(110);
-                    warning_text.Text = "Encoding this file will require a container that can store " + img1size + " bytes.";
+                    fileSize = GetRequiredBytesForEncode(CleanFilePath(FTBEfield.Text));
+                    if (fileSize == 0) ShowErr(110);
+                    warning_text.Text = "Encoding this file will require a container that can store " + fileSize + " bytes.";
                 }
                 else
                 {
-                    img1size = 0;
+                    fileSize = 0;
                     FTBEfield.Foreground = Brushes.Red;
                     warning_text.Foreground = Brushes.Red;
                     warning_text.Text = "The specified file does not exist.";
@@ -286,7 +267,7 @@ namespace Stenor
             }
             else
             {
-                img1size = 0;
+                fileSize = 0;
                 FTBEfield.Foreground = Brushes.Red;
                 warning_text.Foreground = Brushes.Red;
                 warning_text.Text = "Select a valid file.";
@@ -298,22 +279,7 @@ namespace Stenor
         {
             if (FTBDfield.Text.Length > 4)
             {
-                if (FTBDfield.Text.Substring(FTBDfield.Text.Length - 4) == ".png")
-                {
-                    if (!File.Exists(CleanFilePath(FTBDfield.Text)))
-                    {
-                        FTBDfield.Foreground = Brushes.Red;
-                        warning_text3.Foreground = Brushes.Red;
-                        warning_text3.Text = "The specified file does not exist.";
-                    }
-                    else
-                    {
-                        FTBDfield.Foreground = Brushes.Black;
-                        warning_text3.Foreground = Brushes.Black;
-                        warning_text3.Text = "";
-                    }
-                }
-                else if (FTBDfield.Text.Substring(FTBDfield.Text.Length - 4) == ".wav")
+                if (FTBDfield.Text.Substring(FTBDfield.Text.Length - 4) == ".png" || FTBDfield.Text.Substring(FTBDfield.Text.Length - 4) == ".jpg")
                 {
                     if (!File.Exists(CleanFilePath(FTBDfield.Text)))
                     {
@@ -332,14 +298,14 @@ namespace Stenor
                 {
                     FTBDfield.Foreground = Brushes.Red;
                     warning_text3.Foreground = Brushes.Red;
-                    warning_text3.Text = "You need to select a .PNG or WAV file.";
+                    warning_text3.Text = "You need to select a .PNG or JPG file.";
                 }
             }
             else if (FTBDfield.Text.Length > 0)
             {
                 FTBDfield.Foreground = Brushes.Red;
                 warning_text3.Foreground = Brushes.Red;
-                warning_text3.Text = "You need to select a .PNG or WAV file.";
+                warning_text3.Text = "You need to select a .PNG or JPG file.";
             }
             else warning_text3.Text = "";
             decMsg.Text = "";
